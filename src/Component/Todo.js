@@ -22,7 +22,7 @@ const Todo = () => {
   const [toggel, setToggel] = useState(true);
   const [isView, setView] = useState(true);
 
-//   Add Todo
+  //   Add Todo
   let handleSubmit = (e) => {
     e.preventDefault();
     if (!todo) {
@@ -46,12 +46,12 @@ const Todo = () => {
       setTodo("");
     }
   };
-//   Delete Todo
+  //   Delete Todo
   const deleteList = (index) => {
     let res = list.filter((result) => index !== result.id);
     setList(res);
   };
-//   Edit todo
+  //   Edit todo
   const editlist = (id) => {
     let newlist = list.find((elem) => {
       return elem.id === id;
@@ -62,7 +62,7 @@ const Todo = () => {
     setToggel(false);
     setView(true);
   };
-//   View Todo
+  //   View Todo
   const viewlist = (id) => {
     let newlist = list.find((elem) => {
       return elem.id === id;
@@ -72,11 +72,11 @@ const Todo = () => {
 
     setView(false);
   };
-//   Remove all
+  //   Remove all
   const RemoveAll = () => {
     setList([]);
-  }; 
-//   set data Localstorage
+  };
+  //   set data Localstorage
   useEffect(() => {
     localStorage.setItem("todoitems", JSON.stringify(list));
   }, [list]);
@@ -88,14 +88,14 @@ const Todo = () => {
           className="row bg-primary rounded-3 shadow-lg my-5"
           style={{ transform: "translate(0px, 26px)" }}
         >
-            {/* Heading */}
+          {/* Heading */}
           <div className="col-lg-12 col-md-12 col-sm-12 mt-4">
             <form onSubmit={handleSubmit}>
               <div className="Todo-heading text-center text-white">
                 <h1>Simple Todo List</h1>
               </div>
-           
-           {/* Inputbox */}
+
+              {/* Inputbox */}
               <div>
                 {isView ? (
                   <div className="d-flex justify-content-center">
@@ -140,37 +140,41 @@ const Todo = () => {
                       key={e.id}
                     >
                       <div>
-                      <span>{i+1}</span>
-                      &nbsp;&nbsp;
-                      <span>{e.name}</span>
+                        <span>{i + 1}</span>
+                        &nbsp;&nbsp;
+                        <span>{e.name}</span>
                       </div>
-                     <div>
-                     <p className=" fs-4 d-flex align-content-center">
-                        <span className="text-info">
-                          <AiFillEye onClick={() => viewlist(e.id)} />
-                        </span>
-                        <span className="text-success">
-                          <AiFillEdit onClick={() => editlist(e.id)} />
-                        </span>
-                        <span className="text-danger">
-                          <AiTwotoneDelete onClick={() => deleteList(e.id)} />
-                        </span>
-                      </p>
-                     </div>
+                      <div>
+                        <p className=" fs-4 d-flex align-content-center">
+                          <span className="text-info">
+                            <AiFillEye onClick={() => viewlist(e.id)} />
+                          </span>
+                          <span className="text-success">
+                            <AiFillEdit onClick={() => editlist(e.id)} />
+                          </span>
+                          <span className="text-danger">
+                            <AiTwotoneDelete onClick={() => deleteList(e.id)} />
+                          </span>
+                        </p>
+                      </div>
                     </li>
                   ))}
                 </ol>
               </div>
             </Scrollbars>
             <div className="d-flex justify-content-center mt-5 mb-5">
-              <button
-                className="btn btn-info"
-                onClick={() => {
-                  RemoveAll();
-                }}
-              >
-                Remove All
-              </button>
+              {list.length < 1 ? (
+                <h1>Please enter something</h1>
+              ) : (
+                <button
+                  className="btn btn-info"
+                  onClick={() => {
+                    RemoveAll();
+                  }}
+                >
+                  Remove All
+                </button>
+              )}
             </div>
           </div>
         </div>
